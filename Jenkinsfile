@@ -19,7 +19,7 @@ pipeline {
       agent any
       steps {
         script {
-          sh ''''
+          sh '''
             docker run -d --name $IMAGE_NAME -p 80:5000 --env PORT=5000 spasmojo/$IMAGE_NAME:$IMAGE_TAG
             sleep 5
           '''
@@ -30,7 +30,7 @@ pipeline {
       agent any
       steps {
         script {
-          sh ''''
+          sh '''
             curl http://172.17.0.1 | grep -q "Hello world!"
           '''
         }
@@ -40,7 +40,7 @@ pipeline {
       agent any
       steps {
         script {
-          sh ''''
+          sh '''
             docker stop $IMAGE_NAME
             docker rm $IMAGE_NAME
           '''
@@ -57,7 +57,7 @@ pipeline {
       }
       steps {
         script {
-          sh ''''
+          sh '''
             heroku container:login
             heroku create $STAGING || echo "project already exist"
             heroku container:push -a $STAGING web
@@ -76,7 +76,7 @@ pipeline {
       }
       steps {
         script {
-          sh ''''
+          sh '''
             heroku container:login
             heroku create $PRODUCTION || echo "project already exist"
             heroku container:push -a $PRODUCTION web
